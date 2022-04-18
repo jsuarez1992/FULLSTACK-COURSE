@@ -1,24 +1,8 @@
 import { useState } from 'react'
 
-const Statistics = (props) => {
-  if (props.all ===0){
-    return (
-      <>
-        <h1>statistics</h1>
-        <p>No feedback given</p>
-      </>
-    )  
-  }
+const Header = () => {
   return (
-    <>
-      <h1>statistics</h1>
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad} </p>
-      <p>all {props.all} </p>
-      <p>average {props.average} </p>
-      <p>positive {props.good / props.all} %</p>
-    </>
+    <h1>Give Feedback</h1>
   )
 }
 
@@ -28,11 +12,37 @@ const Button = (props) => (
   </button>
 )
 
-const Header = () => {
+const Statistics = (props) => {
+  if (props.all === 0){
+    return (
+      <>
+        <h1>statistics</h1>
+        <p>No feedback given</p>
+      </>
+    )  
+  }
+
   return (
-    <h1>Give Feedback</h1>
+    <>
+      <h1>statistics</h1>
+      <StatisticLine text="good" value={props.good} />
+      <StatisticLine text="neutral" value={props.neutral} />
+      <StatisticLine text="bad" value={props.bad} />
+      <StatisticLine text="all" value={props.all} />
+      <StatisticLine text="average" value={props.average} />
+      <StatisticLine text="positive" value={props.good / props.all + "%" } />
+    </>
   )
 }
+
+const StatisticLine = (props) => {
+  return (
+    <>
+    <p>{props.text} {props.value}</p>
+    </>
+  )
+  }
+
 
 const App = () => {
   // save clicks of each button to its own state
