@@ -9,12 +9,18 @@ const App = () => {
   const addUser = (e) => {
     e.preventDefault()
     console.log('user clicked button', e.target)
-    const userObject = {
-      name: newName,
+    let repeatUser = persons.find(person => person.name === newName)
+    if (typeof repeatUser === 'undefined') {
+      const userObject = {
+        name: newName
+      }
+      setPersons(persons.concat(userObject))
+      setNewName('')
+    }
+    else {
+      window.alert(window.alert(newName + 'is already added to the phonebook'))
     }
 
-    setPersons(persons.concat(userObject))
-    setNewName('')
   }
 
   const storeNameChange = (e) => {
