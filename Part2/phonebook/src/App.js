@@ -2,9 +2,13 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { 
+      name: 'Arto Hellas',
+      number: '+905554445522' 
+    }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const addUser = (e) => {
     e.preventDefault()
@@ -12,10 +16,12 @@ const App = () => {
     let repeatUser = persons.find(person => person.name === newName)
     if (typeof repeatUser === 'undefined') {
       const userObject = {
-        name: newName
+        name: newName,
+        number: newNumber
       }
       setPersons(persons.concat(userObject))
       setNewName('')
+      setNewNumber('')
     }
     else {
       window.alert(window.alert(newName + 'is already added to the phonebook'))
@@ -28,6 +34,11 @@ const App = () => {
     setNewName(e.target.value)
   }
 
+  const storeNumberChange = (e) => {
+    console.log(e.target.value)
+    setNewNumber(e.target.value)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -36,13 +47,14 @@ const App = () => {
           name: <input value={newName} onChange={storeNameChange}/>
         </div>
         <div>
+          number: <input value={newNumber} onChange={storeNumberChange}/>
+        </div>        
+        <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
-      <ul style={{ listStyle: 'none' }}>
-        {persons.map((e, i) => <li key={i}>{e.name}</li>)}
-      </ul>
+      {persons.map((person, id,) => <div key={id}> {person.name} {person.number}</div>)}
     </div>
   )
 }
